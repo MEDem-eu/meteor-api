@@ -7,10 +7,12 @@ def send_reset_email(token, email):
     subject = 'Password Reset Request'
     msg = Message(subject,
                   sender=current_app.config['MAIL_DEFAULT_SENDER'], recipients=[email])
+    
+    reset_link = f"{current_app.config['FRONTEND_URL']}/password/reset/{token}"
 
-    msg.html = render_template('emails/reset.html', token=token, subject=subject)
+    msg.html = render_template('emails/reset.html', token=token, reset_link=reset_link, subject=subject)
     msg.body = f'''To reset your password visit the following link:
-        {url_for('users.reset_token', token=token, _external=True)}
+        {reset_link}
 
         If you did not make this request then simply ignore this email and no changes will be made.
         '''
