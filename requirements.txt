@@ -19,7 +19,7 @@ MarkupSafe
 Pillow
 protobuf==3.20.2
 pycparser
-pydgraph
+pydgraph==21.3.2
 python-dateutil
 python-slugify
 pytz

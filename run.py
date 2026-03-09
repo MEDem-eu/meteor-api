@@ -1,8 +1,9 @@
 from meteor import create_app
 import argparse
+
 parser = argparse.ArgumentParser(description='Specify config file (json)')
 parser.add_argument('--config', type=str)
-args = parser.parse_args()
+args, _ = parser.parse_known_args()
 
 if args.config:
     app = create_app(config_json=args.config)
