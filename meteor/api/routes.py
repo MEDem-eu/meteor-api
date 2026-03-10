@@ -34,8 +34,9 @@ import inspect
 import re
 import collections
 
-from flask import Blueprint, jsonify, current_app, request, abort, url_for, render_template
+from flask import Blueprint, jsonify, current_app, redirect, request, abort, url_for, render_template
 from flask.scaffold import F
+
 
 from flask_login import login_required
 import flask_jwt_extended as jwtx
@@ -101,7 +102,7 @@ class API(Blueprint):
     def abort(status_code, message=None):
         response = jsonify({
             'status': status_code,
-            'message': message or "An error occurred ¯\_(ツ)_/¯",
+            'message': message or r"An error occurred ¯\_(ツ)_/¯",
         })
         response.status_code = status_code
         return response
@@ -1902,7 +1903,7 @@ def register(email: str, password: str, confirm_password: str) -> SuccessfulAPIO
     send_verification_email(user)
 
     return jsonify({'status': 200,
-                    'message': f'Accounted created for {email} ({new_uid})! Please check your inbox and verify your email address!',
+                    'message': f'Account created for {email} ({new_uid})! Please check your inbox and verify your email address!',
                     'uid': new_uid})
 
 
@@ -1913,10 +1914,25 @@ def verify_email(token: str) -> SuccessfulAPIOperation:
         return api.abort(400, message="You are already logged in.")
 
     user = User.verify_email_token(token)
+    
     if not user:
-        return api.abort(400, message='That is an invalid or expired token! Please contact us if you experiencing issues.')
+        if "text/html" in request.headers.get("Accept", ""):
+            # likely a browser: redirect
+            return redirect(f"{current_app.config['FRONTEND_URL']}/login?verified=false")
+        else:
+            # likely API client: return JSON
+            return api.abort(400, message='That is an invalid or expired token! Please contact us if you are experiencing issues.')
+        
     dgraph.update_entry({'_account_status': 'active'}, uid=user.id)
-    return jsonify({'status': 200, 'message': 'Email verified! You can now try to log in'})
+
+
+    if "text/html" in request.headers.get("Accept", ""):
+        # likely a browser: redirect
+        return redirect(f"{current_app.config['FRONTEND_URL']}/login?verified=true")
+    else:
+        # likely API client: return JSON
+        return jsonify(status=200, message='Email verified! You can now try to log in')
+    
 
 
 @api.route('/user/register/resend', methods=['POST'], authentication=True, optional=True)
