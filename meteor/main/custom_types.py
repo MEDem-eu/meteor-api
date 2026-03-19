@@ -404,6 +404,10 @@ class MultipleChoiceInt(MultipleChoice):
 class GitHubAuto(String):
 
     def validation_hook(self, data: str):
+
+        if data is None:
+            return None
+
         data = data.replace('https://www.', '')
         data = data.replace('http://www.', '')
         data = data.replace('https://', '')
