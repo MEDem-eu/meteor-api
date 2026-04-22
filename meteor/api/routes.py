@@ -1798,7 +1798,7 @@ def login_token(email: str, password: str) -> LoginToken:
     return jsonify(access_token=access_token,
                    refresh_token=refresh_token, 
                    access_token_valid_until=access_token_expiration.isoformat(),
-                   refreh_token_valid_until=refresh_token_expiration.isoformat(),
+                   refresh_token_valid_until=refresh_token_expiration.isoformat(),
                    status=200)
 
 @api.route('/user/is_logged_in', authentication=True, optional=True)
