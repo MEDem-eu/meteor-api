@@ -733,7 +733,23 @@ def get_predicate_counts(predicate: str) -> t.List[
             }}
         """
         
-        result = dgraph.query(query_string)['q'][0]["@groupby"]
+        response = dgraph.query(query_string)
+
+        if "q" not in response:
+            current_app.logger.warning(
+                "No Dgraph count result for <%s>. Query: %s Response: %s",
+                predicate.predicate,
+                query_string,
+                response,
+            )
+            return jsonify([])
+
+        if not response["q"]:
+            return jsonify([])
+
+        result = response["q"][0].get("@groupby", [])
+
+
         for r in result:
             r['value'] = r.pop(predicate.predicate)
             r['name'] = predicate.choices[r['value']]
