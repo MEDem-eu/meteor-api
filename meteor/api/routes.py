@@ -2142,7 +2142,8 @@ def show_user_entries(uid: str,
             return api.abort(403, message='You cannot view draft entries of other users')
     
     entries = user.my_entries(dgraph_type=dgraph_type, 
-                              entry_review_status=entry_review_status)
+                              entry_review_status=entry_review_status,
+                              page=page)
     return jsonify(entries)
 
 """ Follow Entries """
