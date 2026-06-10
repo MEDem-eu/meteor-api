@@ -31,6 +31,7 @@ class Config:
     TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', None)
     SLACK_LOGGING_ENABLED = os.environ.get('SLACK_LOGGING_ENABLED', False)
     SLACK_WEBHOOK = os.environ.get('SLACK_WEBHOOK')
+    SLACK_WEBHOOK_2 = os.environ.get("SLACK_WEBHOOK_2")
 
     INSTAGRAM_USERNAME = os.environ.get("INSTAGRAM_USERNAME", None)
     INSTAGRAM_PASSWORD = os.environ.get("INSTAGRAM_PASSWORD", None)

@@ -93,9 +93,16 @@ def create_app(config_class=Config, config_json=None):
 
     if app.config.get("SLACK_LOGGING_ENABLED"):
         try:
-            slack_handler = create_slackhandler(app.config.get("SLACK_WEBHOOK"))
-            app.logger.addHandler(slack_handler)
+            for webhook in [
+                app.config.get("SLACK_WEBHOOK"),
+                app.config.get("SLACK_WEBHOOK_2"),
+            ]:
+                if webhook:
+                    slack_handler = create_slackhandler(webhook)
+                    app.logger.addHandler(slack_handler)
+
             app.logger.error("Initialized Slack Logging!")
+
         except Exception as e:
             app.logger.error(f"Slack Logging not working: {e}")
 
