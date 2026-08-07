@@ -4,6 +4,7 @@ class UserRoles(object):
     Anon = 0
     Contributor = 1
     Reviewer = 2
+    MedemInternalReviewer = 3
     Admin = 10
 
     def __init__(self):
