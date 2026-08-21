@@ -8,7 +8,7 @@ from meteor.misc import get_ip
 
 class Config:
     TESTING = False
-    FRONTEND_URL = os.environ.get('FRONTEND_URL', 'https://meteor.opted.eu')
+    FRONTEND_URL = os.environ.get('FRONTEND_URL', 'https://meteor.medem.eu')
     SECRET_KEY = os.environ.get(
         'meteor_SECRETKEY', secrets.token_hex(32))
     JWT_SECRET_KEY = SECRET_KEY
