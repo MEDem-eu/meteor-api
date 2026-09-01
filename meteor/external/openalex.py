@@ -5,7 +5,7 @@ from thefuzz import fuzz
 
 class OpenAlex:
     api = "https://api.openalex.org/"
-    params = {"mailto": "info@opted.eu"}
+    params = {"mailto": "meteor@medem.eu"}
 
     def __init__(self) -> None:
         pass

@@ -579,7 +579,7 @@ for i, open_alex in enumerate(cap_authors_ids):
             author_details = PUBLICATION_CACHE[open_alex]
         else:
             api = "https://api.openalex.org/people/"
-            r = requests.get(api + open_alex, params={'mailto': "info@opted.eu"})
+            r = requests.get(api + open_alex, params={'mailto': "meteor@medem.eu"})
             author_details = r.json() 
             PUBLICATION_CACHE[open_alex] = author_details
         author_entry = {'uid': '_:' + slugify(open_alex, separator="_"),
