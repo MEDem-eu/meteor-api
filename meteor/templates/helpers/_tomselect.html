@@ -570,7 +570,7 @@ function renderAuthors(data) {
                 load: function(query, callback) {
                     if ( query.length < 3 ) return callback();
                     const url = '{{ url_for("endpoint.lookup") }}?query=' + encodeURIComponent(query) + '&predicate=name&dgraph.type=Author';
-                    const openalex_url = 'https://api.openalex.org/autocomplete/authors?q=' + encodeURIComponent(query) + '&author_hint=institution&mailto=info@opted.eu'
+                    const openalex_url = 'https://api.openalex.org/autocomplete/authors?q=' + encodeURIComponent(query) + '&author_hint=institution&mailto=meteor@medem.eu'
                     Promise.all([fetch(url)
                                     .then(response => response.json())
                                     .then(j => j.data)

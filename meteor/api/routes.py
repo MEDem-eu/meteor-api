@@ -410,9 +410,9 @@ def schema() -> dict:
             "info": {
                 "title": "Meteor API",
                 "description": __doc__,
-                "termsOfService": "https://meteor.opted.eu/about",
+                "termsOfService": "https://meteor.medem.eu/about",
                 "contact": {
-                    "email": "info@opted.eu"
+                    "email": "meteor@medem.eu"
                 },
                 "license": {
                     "name": "CC-BY-SA 4.0",
